@@ -1,0 +1,11 @@
+body{
+    background-color: rgb(172, 180, 151);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+#noman{
+    color: blue;
+}
+#hello{
+    text-align: center;
+    font-weight: bold;
+}
