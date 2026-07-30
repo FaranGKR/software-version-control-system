@@ -1,4 +1,4 @@
-package pk.edu.niit.version_system;
+package pk.edu.niit.versions;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
