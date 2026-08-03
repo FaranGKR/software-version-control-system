@@ -3,13 +3,21 @@ package pk.edu.niit.version_system.Entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+@Entity
+@Table(name="User")
 @Data
 public class User {
     @Id
-    private String id;
-    private String studentname;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(nullable = false)
+    private String name;
+
     private int age;
-    private String phoneno;
+    @Column(name = "phone_no")
+    private String phone_no;
+    @Column(unique = true)
+    private String email;
 
 
 }

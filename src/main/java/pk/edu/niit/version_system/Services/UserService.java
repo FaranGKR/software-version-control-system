@@ -1,42 +1,62 @@
 package pk.edu.niit.version_system.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import pk.edu.niit.version_system.Entities.User;
+import pk.edu.niit.version_system.Repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
-@Component
+@Service
 public class UserService {
 
+    @Autowired
+    private UserRepository userRepository;
 
-    private Map<String, User> userentries = new HashMap<>();
 
     public List<User> getAll() {
-        return new ArrayList<>(userentries.values());
+        return userRepository.findAll();
     }
 
-    public boolean createEntry( User user) {
-        userentries.put(user.getId(), user);
-        return true;
+
+    public User createEntry(User user) {
+        return userRepository.save(user);
     }
 
-    public User deleteUserEntrybyId( String id) {
-        return userentries.remove(id);
+
+    // DELETE USER BY ID
+    public void deleteUserEntrybyId(int id) {
+        userRepository.deleteById(id);
     }
 
-    public User updateUserEntryById( String id,  User user) {
-        return userentries.put(id, user);
+
+    // UPDATE USER
+    public User updateUserEntryById(int id, User user) {
+
+        Optional<User> existingUser = userRepository.findById(id);
+
+        if(existingUser.isPresent()) {
+
+            User oldUser = existingUser.get();
+
+            oldUser.setName(user.getName());
+            oldUser.setAge(user.getAge());
+            oldUser.setPhone_no(user.getPhone_no());
+            oldUser.setEmail(user.getEmail());
+
+            return userRepository.save(oldUser);
+        }
+
+        return null;
     }
 
-    public User getUserbyId( String id) {
-        return userentries.get(id);
+
+    public User getUserbyId(int id) {
+
+        Optional<User> user = userRepository.findById(id);
+
+        return user.orElse(null);
     }
 
 }
