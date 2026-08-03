@@ -1,37 +1,75 @@
 package pk.edu.niit.version_system.service.UserService;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pk.edu.niit.version_system.entity.UserEntity.UserEntity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import pk.edu.niit.version_system.entity.UserEntity.UserEntity;
+import pk.edu.niit.version_system.repository.UserRepository.UserRepository;
+
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class UserService {
 
-    private Map<String, UserEntity> UserEnteries = new HashMap<>();
 
-    public List<UserEntity> getAll()
-    {
-        return new ArrayList<>(UserEnteries.values());
+    @Autowired
+    private UserRepository userRepos;
+
+
+
+    // CREATE
+    public UserEntity addUser(UserEntity user) {
+
+        return userRepos.save(user);
     }
 
-    public boolean createEntry (UserEntity entry)
-    {
-        UserEnteries.put(entry.getId(), entry);
-        return true;
-    }
-    public UserEntity deleteUserEntryByid(String id)
-    {
-        return UserEnteries.remove(id);
+
+
+    // READ ALL
+    public List<UserEntity> getAllUsers() {
+
+        return userRepos.findAll();
     }
 
-    public UserEntity updateUserEntryByid( String id, UserEntity entry)
-    {
-        return UserEnteries.put(id, entry);
+
+
+    // READ BY ID
+    public UserEntity getUserById(String id) {
+
+        return userRepos.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+    }
+
+
+
+    // UPDATE
+    public UserEntity updateUser(String id, UserEntity user) {
+
+
+        UserEntity existingUser =
+                userRepos.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException("User not found"));
+
+
+        existingUser.setName(user.getName());
+        existingUser.setAge(user.getAge());
+        existingUser.setPhone_number(user.getPhone_number());
+
+
+        return userRepos.save(existingUser);
+    }
+
+
+
+    // DELETE
+    public String deleteUser(String id) {
+
+        userRepos.deleteById(id);
+
+        return "User deleted successfully";
     }
 
 }
