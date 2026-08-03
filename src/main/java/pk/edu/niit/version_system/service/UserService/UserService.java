@@ -1,9 +1,8 @@
-package pk.edu.niit.version_system.UserService;
+package pk.edu.niit.version_system.service.UserService;
 
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
-import pk.edu.niit.version_system.UserEntity.UserEntity;
+import pk.edu.niit.version_system.entity.UserEntity.UserEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

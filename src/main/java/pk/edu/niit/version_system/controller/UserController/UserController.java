@@ -1,9 +1,9 @@
-package pk.edu.niit.version_system.UserController;
+package pk.edu.niit.version_system.controller.UserController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pk.edu.niit.version_system.UserEntity.UserEntity;
-import pk.edu.niit.version_system.UserService.UserService;
+import pk.edu.niit.version_system.entity.UserEntity.UserEntity;
+import pk.edu.niit.version_system.service.UserService.UserService;
 
 import java.util.List;
 
