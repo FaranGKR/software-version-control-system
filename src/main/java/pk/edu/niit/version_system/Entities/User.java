@@ -10,9 +10,6 @@ public class User {
     private String studentname;
     private int age;
     private String phoneno;
-    public String getName()
-    {
-        return studentname;
-    }
+
 
 }
